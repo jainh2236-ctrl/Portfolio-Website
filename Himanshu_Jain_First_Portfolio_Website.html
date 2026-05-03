@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Himanshu Jain — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0e1a;
+      --bg2: #0f1525;
+      --card: #141928;
+      --accent: #4f8ef7;
+      --accent2: #7eb3ff;
+      --gold: #f5c542;
+      --text: #e8eaf6;
+      --muted: #8892b0;
+      --border: rgba(79,142,247,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1.2rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(10,14,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.3rem;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      text-align: center;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 750px; }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(79,142,247,0.12);
+      border: 1px solid rgba(79,142,247,0.3);
+      color: var(--accent2);
+      font-size: 0.8rem; font-weight: 500;
+      padding: 0.4rem 1rem; border-radius: 50px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px; text-transform: uppercase;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero-sub {
+      margin-top: 1.2rem;
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+
+    .hero-btns {
+      margin-top: 2.5rem;
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .btn {
+      padding: 0.75rem 1.8rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 500;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      border: none;
+    }
+    .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(79,142,247,0.35); }
+    .btn-outline {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    .hero-stats {
+      margin-top: 3.5rem;
+      display: flex; gap: 2.5rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem; font-weight: 800;
+      color: var(--accent);
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; position: relative; z-index: 1; }
+    .container { max-width: 1000px; margin: 0 auto; }
+
+    .section-label {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; letter-spacing: -1px;
+      margin-bottom: 3rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center;
+    }
+    @media(max-width:680px){ .about-grid { grid-template-columns: 1fr; } }
+
+    .about-text p {
+      color: var(--muted); line-height: 1.8;
+      margin-bottom: 1rem; font-size: 0.98rem;
+    }
+    .about-text p span { color: var(--text); font-weight: 500; }
+
+    .about-info { display: flex; flex-direction: column; gap: 1rem; }
+    .info-row {
+      display: flex; justify-content: space-between;
+      padding: 0.8rem 1rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    .info-row .label { color: var(--muted); }
+    .info-row .value { color: var(--text); font-weight: 500; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--bg2); }
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .skill-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem; font-weight: 700;
+      color: var(--accent); text-transform: uppercase;
+      letter-spacing: 1px; margin-bottom: 1rem;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      background: rgba(79,142,247,0.08);
+      border: 1px solid rgba(79,142,247,0.2);
+      color: var(--accent2);
+      font-size: 0.82rem; padding: 0.3rem 0.75rem;
+      border-radius: 50px;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-list { display: flex; flex-direction: column; gap: 1.5rem; }
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 12px 12px 0;
+      padding: 1.5rem 1.8rem;
+      transition: transform 0.2s;
+    }
+    .edu-card:hover { transform: translateX(6px); }
+    .edu-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; }
+    .edu-school {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700; font-size: 1rem;
+    }
+    .edu-year {
+      background: rgba(79,142,247,0.1);
+      color: var(--accent); font-size: 0.8rem;
+      padding: 0.2rem 0.7rem; border-radius: 50px;
+      white-space: nowrap;
+    }
+    .edu-degree { color: var(--muted); font-size: 0.9rem; margin-top: 0.4rem; }
+    .edu-score {
+      margin-top: 0.6rem;
+      display: inline-block;
+      color: var(--gold); font-weight: 600; font-size: 0.9rem;
+    }
+
+    /* ── CERTIFICATIONS ── */
+    #certifications { background: var(--bg2); }
+    .cert-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+    .cert-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.3rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .cert-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .cert-icon {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: rgba(79,142,247,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .cert-name { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.2rem; }
+    .cert-issuer { color: var(--muted); font-size: 0.82rem; }
+    .cert-year {
+      margin-top: 0.4rem;
+      color: var(--accent); font-size: 0.8rem; font-weight: 500;
+    }
+
+    /* ── EXTRACURRICULAR ── */
+    .extra-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .extra-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .extra-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; }
+    .extra-role {
+      background: rgba(245,197,66,0.1);
+      color: var(--gold); font-size: 0.8rem;
+      padding: 0.2rem 0.7rem; border-radius: 50px;
+    }
+    .extra-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1rem; }
+    .events-label { font-size: 0.8rem; color: var(--accent); font-weight: 600; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 1px; }
+    .events-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .event-tag {
+      background: rgba(245,197,66,0.08);
+      border: 1px solid rgba(245,197,66,0.2);
+      color: var(--gold); font-size: 0.82rem;
+      padding: 0.3rem 0.75rem; border-radius: 50px;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg2); }
+    .contact-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.2rem;
+    }
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      text-align: center;
+      text-decoration: none; color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+      display: block;
+    }
+    .contact-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .contact-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .contact-type { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.3rem; }
+    .contact-value { font-size: 0.9rem; font-weight: 500; word-break: break-all; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.85rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">HJ.</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#certifications">Certs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-tag">📍 Greater Noida, UP · Open to Opportunities</div>
+      <h1>Hi, I'm <span>Himanshu</span><br/>Jain</h1>
+      <p class="hero-sub">BCA Student at JIMS Engineering Management Technical Campus<br/>
+      Passionate about Web Development, Coding & Technology</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn btn-primary">📬 Get In Touch</a>
+        <a href="#skills" class="btn btn-outline">💻 View Skills</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">8.4</div>
+          <div class="stat-label">SGPA — 1st Sem</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Certificates</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Events Participated</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1st</div>
+          <div class="stat-label">Year BCA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container reveal">
+      <div class="section-label">Who I Am</div>
+      <div class="section-title">About Me</div>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm <span>Himanshu Jain</span>, a 1st year BCA student at JIMS Engineering Management Technical Campus, Greater Noida — affiliated to GGSIPU.</p>
+          <p>I'm passionate about <span>web development</span> and programming. I enjoy building things with HTML, CSS, JavaScript and PHP, and I'm constantly learning and improving my skills.</p>
+          <p>I'm an <span>Executive Member</span> of Bytecode Society — my college's premier tech society — where I contribute to organizing technical events and workshops.</p>
+          <p>Originally from <span>Dholpur, Rajasthan</span>, I'm currently based in Greater Noida pursuing my dream in Computer Applications.</p>
+        </div>
+        <div class="about-info">
+          <div class="info-row"><span class="label">📅 Date of Birth</span><span class="value">25 August 2007</span></div>
+          <div class="info-row"><span class="label">🎓 Degree</span><span class="value">BCA (2025–2028)</span></div>
+          <div class="info-row"><span class="label">🏫 College</span><span class="value">JIMS EMTC, Greater Noida</span></div>
+          <div class="info-row"><span class="label">📊 SGPA</span><span class="value">8.4 / 10</span></div>
+          <div class="info-row"><span class="label">📍 Location</span><span class="value">Greater Noida, UP</span></div>
+          <div class="info-row"><span class="label">🌐 Languages</span><span class="value">Hindi (Native), English (Conversational)</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container reveal">
+      <div class="section-label">What I Know</div>
+      <div class="section-title">Technical Skills</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-card-title">💻 Programming Languages</div>
+          <div class="skill-tags">
+            <span class="tag">C</span>
+            <span class="tag">PHP</span>
+            <span class="tag">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-title">🌐 Web Technologies</div>
+          <div class="skill-tags">
+            <span class="tag">HTML5</span>
+            <span class="tag">CSS3</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-title">🗄️ Database</div>
+          <div class="skill-tags">
+            <span class="tag">MySQL (Basic)</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-title">🧠 Computer Science</div>
+          <div class="skill-tags">
+            <span class="tag">DSA (Basic)</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-title">🛠️ Tools</div>
+          <div class="skill-tags">
+            <span class="tag">VS Code</span>
+            <span class="tag">MS Word</span>
+            <span class="tag">MS Excel</span>
+            <span class="tag">PowerPoint</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container reveal">
+      <div class="section-label">Academic Background</div>
+      <div class="section-title">Education</div>
+      <div class="edu-list">
+        <div class="edu-card">
+          <div class="edu-header">
+            <div class="edu-school">JIMS Engineering Management Technical Campus, Greater Noida</div>
+            <div class="edu-year">2025 – 2028</div>
+          </div>
+          <div class="edu-degree">Bachelor of Computer Applications (BCA) | Affiliated to GGSIPU</div>
+          <div class="edu-score">⭐ SGPA: 8.4 / 10 (1st Semester)</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-header">
+            <div class="edu-school">Navjeevan Sr. Secondary School, Sikar</div>
+            <div class="edu-year">2024</div>
+          </div>
+          <div class="edu-degree">12th Grade — Science Stream (PCM) | Rajasthan Board (RBSE)</div>
+          <div class="edu-score">📊 Percentage: 74.6%</div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-header">
+            <div class="edu-school">New Royal Public Secondary School, Dholpur</div>
+            <div class="edu-year">2022</div>
+          </div>
+          <div class="edu-degree">10th Grade | Rajasthan Board of Secondary Education (RBSE)</div>
+          <div class="edu-score">📊 Percentage: 71.3%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <div class="container reveal">
+      <div class="section-label">Achievements</div>
+      <div class="section-title">Certifications & Events</div>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <div class="cert-icon">🏢</div>
+          <div>
+            <div class="cert-name">IBM Certificate</div>
+            <div class="cert-issuer">IBM</div>
+            <div class="cert-year">2026</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🎓</div>
+          <div>
+            <div class="cert-name">Ducat Certificate</div>
+            <div class="cert-issuer">Ducat India</div>
+            <div class="cert-year">2025</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🧙</div>
+          <div>
+            <div class="cert-name">Wizard Quest</div>
+            <div class="cert-issuer">Event Participation</div>
+            <div class="cert-year">2026</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🐛</div>
+          <div>
+            <div class="cert-name">Debug Race</div>
+            <div class="cert-issuer">Event Participation</div>
+            <div class="cert-year">2025</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🎮</div>
+          <div>
+            <div class="cert-name">BGMI</div>
+            <div class="cert-issuer">Gaming Event Participation</div>
+            <div class="cert-year">2026</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🎨</div>
+          <div>
+            <div class="cert-name">Graphix Storm</div>
+            <div class="cert-issuer">Event Participation</div>
+            <div class="cert-year">2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXTRACURRICULAR -->
+  <section id="extra">
+    <div class="container reveal">
+      <div class="section-label">Beyond Academics</div>
+      <div class="section-title">Extracurricular Activities</div>
+      <div class="extra-card">
+        <div class="extra-header">
+          <div class="extra-title">Bytecode Society — JIMS EMTC</div>
+          <div class="extra-role">⚡ Executive Member</div>
+        </div>
+        <div class="extra-desc">
+          Actively contributing as an Executive Member of the college's premier technical society, Bytecode (2025–Present).
+          Assisting in organizing technical events, workshops, and coding activities. Participated in and contributed to multiple college-level technical and creative events.
+        </div>
+        <div class="events-label">Events Participated</div>
+        <div class="events-tags">
+          <span class="event-tag">UX Wars</span>
+          <span class="event-tag">Prompt Wars</span>
+          <span class="event-tag">Code Arena</span>
+          <span class="event-tag">Reel Bash</span>
+          <span class="event-tag">Wizard Quest</span>
+          <span class="event-tag">Debug Race</span>
+          <span class="event-tag">Graphix Storm</span>
+          <span class="event-tag">BGMI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container reveal">
+      <div class="section-label">Let's Connect</div>
+      <div class="section-title">Contact Me</div>
+      <div class="contact-grid">
+        <a href="mailto:jainh2236@gmail.com" class="contact-card">
+          <div class="contact-icon">📧</div>
+          <div class="contact-type">Email</div>
+          <div class="contact-value">jainh2236@gmail.com</div>
+        </a>
+        <a href="tel:+919785621321" class="contact-card">
+          <div class="contact-icon">📱</div>
+          <div class="contact-type">Mobile</div>
+          <div class="contact-value">+91 97856 21321</div>
+        </a>
+        <a href="https://linkedin.com/in/himanshu-jain-669978322" target="_blank" class="contact-card">
+          <div class="contact-icon">💼</div>
+          <div class="contact-type">LinkedIn</div>
+          <div class="contact-value">himanshu-jain-669978322</div>
+        </a>
+        <a href="https://github.com/jainh2236-ctrl" target="_blank" class="contact-card">
+          <div class="contact-icon">🐙</div>
+          <div class="contact-type">GitHub</div>
+          <div class="contact-value">jainh2236-ctrl</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Designed & Built by <strong style="color:var(--accent)">Himanshu Jain</strong> · BCA Student, JIMS EMTC Greater Noida · 2025</p>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    reveals.forEach(r => observer.observe(r));
+
+    // Smooth active nav
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if(window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id'); });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#'+current ? 'var(--accent)' : '';
+      });
+    });
+  </script>
+</body>
+</html>
